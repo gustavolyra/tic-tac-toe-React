@@ -10,32 +10,34 @@ function Square(props) {
 
 export default class Board extends Component {
   renderSquare(i) {
+    const key = 'square' + i;
     return (
       <Square
+        key={key}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
     );
   }
 
+  renderRowComponents(i) {
+    const components = [0 + i, 1 + i, 2 + i];
+    return (
+      <div key={'row' + i} className="board-row">
+        {components.map((row) => {
+          return this.renderSquare(row);
+        })}
+      </div>
+    );
+  }
+
   render() {
+    const rows = [0, 3, 6];
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {rows.map((row) => {
+          return this.renderRowComponents(row);
+        })}
       </div>
     );
   }

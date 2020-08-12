@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Board from './Board.js';
 import { calculateWinner } from './validator/calculateWinner';
+import css from './game.module.css';
 
 export default class Game extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Game extends Component {
           squares: Array(9).fill(null),
         },
       ],
+      cssBtn: css.btnClass,
       stepNumber: 0,
       xIsNext: true,
     };
@@ -46,9 +48,9 @@ export default class Game extends Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      const desc = move ? 'Go to move #' + move : 'Restart';
       return (
-        <li key="{move}">
+        <li key={move} className={css.gameClass}>
           <button
             className="waves-effect waves-light btn green darken-4"
             onClick={() => this.jumpTo(move)}
